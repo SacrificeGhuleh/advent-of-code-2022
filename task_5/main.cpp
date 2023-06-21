@@ -94,6 +94,23 @@ struct CrateHandler
             }
         }
     }
+    void processCommandsMultiCrate()
+    {
+        for (const auto &command : commands)
+        {
+            std::deque<char> midBuffer;
+            for (int i = 0; i < command.moveCount; i++)
+            {
+                midBuffer.push_front(crateStacks.at(command.srcCol).front());
+                crateStacks.at(command.srcCol).pop_front();
+            }
+            for (int i = 0; i < command.moveCount; i++)
+            {
+                crateStacks.at(command.dstCol).push_front(midBuffer.front());
+                midBuffer.pop_front();
+            }
+        }
+    }
 
     void printTopCrates()
     {
@@ -132,16 +149,28 @@ void test()
     assert(getNumberOfColumns("[A] [B]") == 2);
     assert(getNumberOfColumns("[A] [B] [C]") == 3);
     assert(getNumberOfColumns("[A] [B] [C] [D]") == 4);
-
-    CrateHandler parser;
-    for (const auto &str : testInput)
     {
-        parser.addRow(str);
+        CrateHandler parser;
+        for (const auto &str : testInput)
+        {
+            parser.addRow(str);
+        }
+
+        parser.processCommands();
+
+        parser.printTopCrates();
     }
+    {
+        CrateHandler parser;
+        for (const auto &str : testInput)
+        {
+            parser.addRow(str);
+        }
 
-    parser.processCommands();
+        parser.processCommandsMultiCrate();
 
-    parser.printTopCrates();
+        parser.printTopCrates();
+    }
 }
 
 int main()
@@ -154,15 +183,19 @@ int main()
     // Read from the text file
     std::ifstream inputFile("data/input.txt");
     CrateHandler parser;
+    CrateHandler parserMultiCrate;
 
     while (std::getline(inputFile, input))
     {
         parser.addRow(input);
+        parserMultiCrate.addRow(input);
     }
     // Close the file
     inputFile.close();
 
     parser.processCommands();
+    parserMultiCrate.processCommandsMultiCrate();
 
     parser.printTopCrates();
+    parserMultiCrate.printTopCrates();
 }
