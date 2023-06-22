@@ -33,7 +33,7 @@ std::ostream &operator<<(std::ostream &os, const std::unordered_set<T> &v)
     return printer(os, v);
 }
 
-size_t getMarkerPosition(const std::string &str)
+size_t getUniqueSubstrPosition(const std::string &str, size_t substrLen)
 {
     size_t idx = 0;
     std::deque<char> kvi;
@@ -56,9 +56,9 @@ size_t getMarkerPosition(const std::string &str)
             } while (poped != ch);
         }
 
-        if (kvi.size() == 4)
+        if (kvi.size() == substrLen)
         {
-            std::cout << "Found at idx " << idx << " " << kvi << "\n";
+            std::cout << substrLen << " unique chars found at idx " << idx << " " << kvi << "\n";
             break;
         }
 
@@ -76,16 +76,25 @@ size_t getMarkerPosition(const std::string &str)
 
 void test()
 {
-    assert(getMarkerPosition("mjqjpqmgbljsphdztnvjfqwrcgsmlb") == 7);
-    assert(getMarkerPosition("bvwbjplbgvbhsrlpgdmjqwftvncz") == 5);
-    assert(getMarkerPosition("nppdvjthqldpwncqszvftbrmjlhg") == 6);
-    assert(getMarkerPosition("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg") == 10);
-    assert(getMarkerPosition("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw") == 11);
+    assert(getUniqueSubstrPosition("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 4) == 7);
+    assert(getUniqueSubstrPosition("bvwbjplbgvbhsrlpgdmjqwftvncz", 4) == 5);
+    assert(getUniqueSubstrPosition("nppdvjthqldpwncqszvftbrmjlhg", 4) == 6);
+    assert(getUniqueSubstrPosition("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 4) == 10);
+    assert(getUniqueSubstrPosition("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 4) == 11);
+
+
+    assert(getUniqueSubstrPosition("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 14) == 19);
+    assert(getUniqueSubstrPosition("bvwbjplbgvbhsrlpgdmjqwftvncz", 14) == 23);
+    assert(getUniqueSubstrPosition("nppdvjthqldpwncqszvftbrmjlhg", 14) == 23);
+    assert(getUniqueSubstrPosition("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 14) == 29);
+    assert(getUniqueSubstrPosition("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 14) == 26);
 }
 
 int main()
 {
+    std::cout << "Tests:\n";
     test();
+    std::cout << "\nSolution:\n";
 
     // Create a text string, which is used to output the text file
     std::string input;
@@ -95,7 +104,8 @@ int main()
 
     while (std::getline(inputFile, input))
     {
-        getMarkerPosition(input);
+        getUniqueSubstrPosition(input, 4);
+        getUniqueSubstrPosition(input, 14);
         // imput
     }
     // Close the file
