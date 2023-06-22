@@ -1,19 +1,17 @@
-#include <iostream>
-#include <cstring>
-#include <cassert>
-#include <unordered_set>
-#include <fstream>
-#include <cstdint>
 #include <array>
+#include <cassert>
+#include <cstdint>
+#include <cstring>
+#include <fstream>
+#include <iostream>
+#include <unordered_set>
 #include <vector>
 
-void test()
-{
+void test() {
     assert(0 == 1);
 }
 
-int main()
-{
+int main() {
     std::cout << "Tests:\n";
     test();
     std::cout << "\nSolution:\n";
@@ -24,8 +22,7 @@ int main()
     // Read from the text file
     std::ifstream inputFile("data/input.txt");
 
-    while (std::getline(inputFile, input))
-    {
+    while (std::getline(inputFile, input)) {
         // imput
     }
     // Close the file

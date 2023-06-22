@@ -1,0 +1,46 @@
+{
+    "folders":
+    [
+        {
+            "path":"."
+        }
+    ],
+    "settings":
+    {
+        // CMake settings
+        "cmake.buildDirectory": "${workspaceFolder}/build",
+        "cmake.configureOnOpen": false,
+
+        // ccls settings
+        "ccls.misc.compilationDatabaseDirectory": "${workspaceFolder}/build",
+        "ccls.cache.directory": "/tmp/.vscode/${workspaceFolder}/.ccls-cache",
+        
+        // Formating
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "xaver.clang-format",
+
+        // Intellisense - ccls is used, C_Cpp shall be disabled
+        "C_Cpp.autocomplete": "Disabled",
+        "C_Cpp.formatting": "Disabled",
+        "C_Cpp.errorSquiggles": "Disabled",
+        "C_Cpp.intelliSenseEngine": "Disabled",
+        "ros.distro": "humble",
+        "[cpp]": {
+            "editor.defaultFormatter": "xaver.clang-format"
+        }
+    },
+    "extensions": 
+    {
+        "recommendations":
+        [
+            "ms-vscode.cpptools",
+            "ms-vscode.cmake-tools",
+            "ms-vscode-remote.remote-containers",
+            "ms-azuretools.vscode-docker",
+            "twxs.cmake",
+            "ccls-project.ccls",
+            "eamodio.gitlens",
+            "xaver.clang-format"
+        ]
+    }
+}

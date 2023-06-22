@@ -1,0 +1,48 @@
+Checks: 
+ 'readability-identifier-naming*,
+  bugprone-*,
+  -bugprone-easily-swappable-parameters,
+  clang-analyzer-*,
+  -clang-diagnostic-ignored-optimization-argument,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -cppcoreguidelines-pro-type-vararg,
+  -cppcoreguidelines-avoid-non-const-global-variables,
+  -cppcoreguidelines-owning-memory,
+  -cppcoreguidelines-pro-type-reinterpret-cast,
+  google-build-explicit-make-pair,
+  google-build-using-namespace,
+  google-explicit-constructor,
+  google-readability-casting,
+  misc-*,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  -modernize-pass-by-value,
+  performance-*,
+  readability-*,
+  -readability-use-anyofallof,
+  -readability-function-cognitive-complexity,
+  -readability-identifier-length'
+
+WarningsAsErrors: '*'
+
+HeaderFilterRegex: '@HEADERS_FOR_CLANG_TIDY@'
+
+CheckOptions:
+  - { key: readability-identifier-naming.NamespaceCase,                 value: camelBack  }
+  - { key: readability-identifier-naming.ClassCase,                     value: CamelCase  }
+  - { key: readability-identifier-naming.StructCase,                    value: CamelCase  }
+  - { key: readability-identifier-naming.UnionCase,                     value: CamelCase  }
+
+  - { key: readability-identifier-naming.FunctionCase,                  value: camelBack  }
+  - { key: readability-identifier-naming.ParameterCase,                 value: camelBack }
+  - { key: readability-identifier-naming.VariableCase,                  value: camelBack  }
+
+  - { key: readability-identifier-naming.GlobalConstantCase,            value: UPPER_CASE }
+
+  - { key: readability-identifier-naming.GlobalVariableCase,            value: camelBack  }
+  - { key: readability-identifier-naming.GlobalVariablePrefix,          value: g_         }
+
+  - { key: readability-identifier-naming.TemplateParameterCase,         value: CamelCase  }
+
+  - { key: readability-identifier-naming.PrivateMemberPrefix,           value: m_         }

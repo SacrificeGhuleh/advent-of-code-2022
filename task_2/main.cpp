@@ -1,6 +1,6 @@
-#include <iostream>
 #include <cstdint>
 #include <fstream>
+#include <iostream>
 #include <tuple>
 
 constexpr uint8_t baseScoreTable[3] = {1, 2, 3};
@@ -26,8 +26,7 @@ constexpr char moveTable[3][3] = {
     /*C*/ {'B', 'C', 'A'},
 };
 
-constexpr std::pair<char, char> getWinningStrategy(std::pair<char, char> input)
-{
+constexpr std::pair<char, char> getWinningStrategy(std::pair<char, char> input) {
     const char opponent = input.first;
     const char result = input.second;
     const size_t resultIdx = result - 'X';
@@ -38,8 +37,7 @@ constexpr std::pair<char, char> getWinningStrategy(std::pair<char, char> input)
     return {opponent, player};
 }
 
-constexpr uint8_t getScore(char opponent, char player)
-{
+constexpr uint8_t getScore(char opponent, char player) {
     const size_t playerIdx = player - 'A';
     const size_t opponentIdx = opponent - 'A';
 
@@ -49,18 +47,15 @@ constexpr uint8_t getScore(char opponent, char player)
     return baseScore + gameScore;
 }
 
-constexpr uint8_t getScore(std::pair<char, char> input)
-{
+constexpr uint8_t getScore(std::pair<char, char> input) {
     return getScore(input.first, input.second);
 }
 
-constexpr std::pair<char, char> parseInput(const char *line)
-{
+constexpr std::pair<char, char> parseInput(const char* line) {
     return {line[0], line[2]};
 }
 
-int main()
-{
+int main() {
     static_assert(parseInput("A Y").first == 'A');
     static_assert(parseInput("A Y").second == 'Y');
 
@@ -88,8 +83,7 @@ int main()
 
     uint32_t score = 0;
 
-    while (std::getline(inputFile, input))
-    {
+    while (std::getline(inputFile, input)) {
         score += getScore(getWinningStrategy(parseInput(input.c_str())));
     }
 

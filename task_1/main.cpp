@@ -1,20 +1,18 @@
-#include <iostream>
 #include <cstdint>
 #include <fstream>
+#include <iostream>
 #include <set>
 
-struct Elf
-{
+struct Elf {
     Elf(uint32_t calories, size_t idx) : calories{calories}, idx{idx} {}
 
-    bool operator<(const Elf &elf) const { return calories > elf.calories; }
+    bool operator<(const Elf& elf) const { return calories > elf.calories; }
 
     uint32_t calories = 0;
     size_t idx = 0;
 };
 
-int main()
-{
+int main() {
     // Create a text string, which is used to output the text file
     std::string input;
 
@@ -28,16 +26,12 @@ int main()
 
     std::set<Elf> elfs;
 
-    while (std::getline(inputFile, input))
-    {
+    while (std::getline(inputFile, input)) {
         // Output the text from the file
 
-        try
-        {
+        try {
             accumulation += std::stoi(input);
-        }
-        catch (std::exception const &ex)
-        {
+        } catch (std::exception const& ex) {
             elfs.insert(Elf(accumulation, idx));
             max_calories = std::max(max_calories, accumulation);
             accumulation = 0;
@@ -52,8 +46,7 @@ int main()
 
     size_t count = 0;
     uint32_t accumulationOfTopThree = 0;
-    for (auto const &elf : elfs)
-    {
+    for (auto const& elf : elfs) {
         if (++count > 3)
             break;
         accumulationOfTopThree += elf.calories;
