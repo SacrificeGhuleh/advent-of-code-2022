@@ -14,7 +14,9 @@ void test()
 
 int main()
 {
+    std::cout << "Tests:\n";
     test();
+    std::cout << "\nSolution:\n";
 
     // Create a text string, which is used to output the text file
     std::string input;
