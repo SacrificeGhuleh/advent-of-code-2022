@@ -4,7 +4,7 @@
 #include <set>
 
 struct Elf {
-    Elf(uint32_t calories, size_t idx) : calories{calories}, idx{idx} {}
+    Elf(uint32_t cals, size_t i) : calories{cals}, idx{i} {}
 
     bool operator<(const Elf& elf) const { return calories > elf.calories; }
 
@@ -30,7 +30,7 @@ int main() {
         // Output the text from the file
 
         try {
-            accumulation += std::stoi(input);
+            accumulation += static_cast<uint32_t>(std::stoi(input));
         } catch (std::exception const& ex) {
             elfs.insert(Elf(accumulation, idx));
             maxCalories = std::max(maxCalories, accumulation);

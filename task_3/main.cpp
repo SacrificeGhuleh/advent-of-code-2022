@@ -7,31 +7,30 @@
 #include <unordered_set>
 #include <vector>
 
-int getItemScore(char item) {
+uint32_t getItemScore(char item) {
     if (item >= 'a' && item <= 'z') {
-        return item - 'a' + 1;
+        return static_cast<uint32_t>(item - 'a' + 1);
     }
     if (item >= 'A' && item <= 'Z') {
-        return item - 'A' + 27;
+        return static_cast<uint32_t>(item - 'A' + 27);
     }
     return 0;
 }
 struct Rucksack {
-    Rucksack(const char* items)
-        : items{items},
-          compartments{std::string(items, strlen(items) / 2),
-                       std::string(items + strlen(items) / 2, strlen(items) / 2)},
-          duplicate{getDuplicate(compartments)},
+    Rucksack(const char* itms)
+        : items{itms},
+          compartments{std::string(itms, strlen(itms) / 2), std::string(itms + strlen(itms) / 2, strlen(itms) / 2)},
+          duplicate{getDuplicate()},
           priority(getItemScore(duplicate)) {}
 
     std::unordered_set<char> heldItems;
     const std::string items;
     const std::string compartments[2];
     const char duplicate;
-    const int priority;
+    const uint32_t priority;
 
 private:
-    char getDuplicate(const std::string* compartments) {
+    char getDuplicate() {
         const std::string cmp0 = compartments[0];
         const std::string cmp1 = compartments[1];
 
@@ -40,7 +39,7 @@ private:
 
         char ret = '\0';
 
-        for (int i = 0; i < cmp0.length(); ++i) {
+        for (size_t i = 0; i < cmp0.length(); ++i) {
             const char ch0 = cmp0[i];
             const char ch1 = cmp1[i];
 
@@ -69,7 +68,7 @@ struct ElfGroup {
     static char findDuplicate(const std::array<Rucksack, 3>& elfs) {
         const std::unordered_set<char>* mostItems = &elfs[0].heldItems;
 
-        for (int i = 1; i < elfs.size(); i++) {
+        for (size_t i = 1; i < elfs.size(); i++) {
             const std::unordered_set<char>* testItems = &elfs[i].heldItems;
             if (mostItems->size() < testItems->size()) {
                 mostItems = testItems;
@@ -96,7 +95,7 @@ struct ElfGroup {
     const std::array<Rucksack, 3> elfs;
 
     const char duplicate;
-    const int priority;
+    const uint32_t priority;
 };
 
 void test() {
@@ -108,7 +107,7 @@ void test() {
         'p', 'L', 'P', 'v', 't', 's',
     };
 
-    const int expectedPriorities[6] = {16, 38, 42, 22, 20, 19};
+    const uint32_t expectedPriorities[6] = {16, 38, 42, 22, 20, 19};
 
     for (int i = 0; i < 6; i++) {
         assert(testRucksacks[i].duplicate == expectedDulicates[i]);
@@ -116,7 +115,7 @@ void test() {
     }
 
     const char expectedBadges[2] = {'r', 'Z'};
-    const int expectedBadgesPriorities[2] = {18, 52};
+    const uint32_t expectedBadgesPriorities[2] = {18, 52};
 
     for (int i = 0; i < 2; i++) {
         ElfGroup eg(testRucksacks[(i * 3)], testRucksacks[(i * 3) + 1], testRucksacks[(i * 3) + 2]);

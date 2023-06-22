@@ -24,12 +24,12 @@ std::ostream& operator<<(std::ostream& os, const std::smatch& v) {
 }
 
 struct Command {
-    constexpr Command(int moveCount = -1, int srcCol = -1, int dstCol = -1)
-        : moveCount{moveCount}, srcCol{srcCol - 1}, dstCol{dstCol - 1} {}
+    constexpr Command(size_t moveCnt = 1, size_t srcCl = 1, size_t dstCl = 1)
+        : moveCount{moveCnt}, srcCol{srcCl - 1}, dstCol{dstCl - 1} {}
 
-    const int moveCount;
-    const int srcCol;
-    const int dstCol;
+    const size_t moveCount;
+    const size_t srcCol;
+    const size_t dstCol;
 };
 
 inline size_t getNumberOfColumns(const std::string& str) {
@@ -40,7 +40,8 @@ Command parseCommand(const std::string& str) {
     std::smatch matches;
 
     if (std::regex_search(str, matches, moveRgx)) {
-        return Command(std::stoi(matches.str(1)), std::stoi(matches.str(2)), std::stoi(matches.str(3)));
+        return Command(static_cast<size_t>(std::stoi(matches.str(1))), static_cast<size_t>(std::stoi(matches.str(2))),
+                       static_cast<size_t>(std::stoi(matches.str(3))));
     }
     return Command();
 }
@@ -70,7 +71,7 @@ struct CrateHandler {
 
     void processCommands() {
         for (const auto& command : commands) {
-            for (int i = 0; i < command.moveCount; i++) {
+            for (size_t i = 0; i < command.moveCount; i++) {
                 crateStacks.at(command.dstCol).push_front(crateStacks.at(command.srcCol).front());
                 crateStacks.at(command.srcCol).pop_front();
             }
@@ -79,11 +80,11 @@ struct CrateHandler {
     void processCommandsMultiCrate() {
         for (const auto& command : commands) {
             std::deque<char> midBuffer;
-            for (int i = 0; i < command.moveCount; i++) {
+            for (size_t i = 0; i < command.moveCount; i++) {
                 midBuffer.push_front(crateStacks.at(command.srcCol).front());
                 crateStacks.at(command.srcCol).pop_front();
             }
-            for (int i = 0; i < command.moveCount; i++) {
+            for (size_t i = 0; i < command.moveCount; i++) {
                 crateStacks.at(command.dstCol).push_front(midBuffer.front());
                 midBuffer.pop_front();
             }

@@ -29,8 +29,8 @@ constexpr char moveTable[3][3] = {
 constexpr std::pair<char, char> getWinningStrategy(std::pair<char, char> input) {
     const char opponent = input.first;
     const char result = input.second;
-    const size_t resultIdx = result - 'X';
-    const size_t opponentIdx = opponent - 'A';
+    const size_t resultIdx = static_cast<size_t>(result - 'X');
+    const size_t opponentIdx = static_cast<size_t>(opponent - 'A');
 
     const char player = moveTable[opponentIdx][resultIdx];
 
@@ -38,8 +38,8 @@ constexpr std::pair<char, char> getWinningStrategy(std::pair<char, char> input) 
 }
 
 constexpr uint8_t getScore(char opponent, char player) {
-    const size_t playerIdx = player - 'A';
-    const size_t opponentIdx = opponent - 'A';
+    const size_t playerIdx = static_cast<size_t>(player - 'A');
+    const size_t opponentIdx = static_cast<size_t>(opponent - 'A');
 
     const uint8_t baseScore = baseScoreTable[playerIdx];
     const uint8_t gameScore = scoreTable[opponentIdx][playerIdx];

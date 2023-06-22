@@ -20,8 +20,8 @@ std::ostream& operator<<(std::ostream& os, const std::smatch& v) {
 }
 
 struct ElfPair {
-    ElfPair(const std::pair<size_t, size_t>& e1, const std::pair<size_t, size_t>& e2)
-        : e1{e1}, e2{e2}, subset{isSubset(e1, e2)}, overlap{isOverlap(e1, e2)} {}
+    ElfPair(const std::pair<size_t, size_t>& elf1, const std::pair<size_t, size_t>& elf2)
+        : e1{elf1}, e2{elf2}, subset{isSubset(elf1, elf2)}, overlap{isOverlap(elf1, elf2)} {}
 
     const std::pair<size_t, size_t> e1;
     const std::pair<size_t, size_t> e2;
