@@ -21,7 +21,7 @@ int main() {
 
     // Use a while loop together with the getline() function to read the file line by line
     uint32_t accumulation = 0;
-    uint32_t max_calories = 0;
+    uint32_t maxCalories = 0;
     size_t idx = 0;
 
     std::set<Elf> elfs;
@@ -33,26 +33,27 @@ int main() {
             accumulation += std::stoi(input);
         } catch (std::exception const& ex) {
             elfs.insert(Elf(accumulation, idx));
-            max_calories = std::max(max_calories, accumulation);
+            maxCalories = std::max(maxCalories, accumulation);
             accumulation = 0;
             ++idx;
         }
     }
 
     elfs.insert(Elf(accumulation, idx));
-    max_calories = std::max(max_calories, accumulation);
+    maxCalories = std::max(maxCalories, accumulation);
     accumulation = 0;
     ++idx;
 
     size_t count = 0;
     uint32_t accumulationOfTopThree = 0;
     for (auto const& elf : elfs) {
-        if (++count > 3)
+        if (++count > 3) {
             break;
+        }
         accumulationOfTopThree += elf.calories;
     }
 
-    std::cout << "Max calories: " << max_calories << "\n";
+    std::cout << "Max calories: " << maxCalories << "\n";
     std::cout << "Sum of top three: " << accumulationOfTopThree << "\n";
 
     // Close the file
