@@ -9,4 +9,6 @@ add_subdirectory(task_3)
 add_subdirectory(task_4)
 add_subdirectory(task_5)
 add_subdirectory(task_6)
-# add_subdirectory(template)
+add_subdirectory(task_7)
+
+add_subdirectory(template)
